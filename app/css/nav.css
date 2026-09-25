@@ -1,0 +1,449 @@
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(251, 249, 246, 0.96);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 rgba(228, 223, 215, 0.9);
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.site-header-bar {
+  height: 5rem;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  text-decoration: none;
+  color: #1b1c1a;
+}
+
+.site-brand img {
+  height: 2.25rem;
+  width: auto;
+  object-fit: contain;
+}
+
+.site-brand span {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.site-nav {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.125rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.site-nav-link,
+.site-drawer-link,
+.site-book,
+.site-phone {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.site-nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  color: #504534;
+}
+
+.site-nav-link:hover {
+  color: #1b1c1a;
+  background: #f3efe6;
+}
+
+.site-nav-link.is-active,
+.site-drawer-link.is-active,
+.site-dropdown-menu a.is-active {
+  background: #e8f0ec;
+  color: #254e40;
+}
+
+.site-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.site-dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 2rem;
+  margin-left: -0.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: #504534;
+  cursor: pointer;
+}
+
+.site-dropdown-toggle .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.site-dropdown-toggle:hover,
+.site-dropdown.is-open .site-dropdown-toggle {
+  background: #f3efe6;
+  color: #1b1c1a;
+}
+
+.site-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  left: 0;
+  z-index: 60;
+  min-width: 15rem;
+  padding: 0.4rem;
+  background: #ffffff;
+  border: 1px solid #e4dfd7;
+  border-radius: 0.75rem;
+  box-shadow: 0 16px 32px -4px rgba(15, 59, 46, 0.08);
+}
+
+.site-dropdown-menu::before {
+  content: "";
+  position: absolute;
+  top: -0.75rem;
+  right: 0;
+  left: 0;
+  height: 0.75rem;
+}
+
+.site-dropdown-menu[hidden] {
+  display: none;
+}
+
+.site-dropdown-menu a {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.5rem;
+  color: #1b1c1a;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.site-dropdown-menu a:hover {
+  background: #f3efe6;
+}
+
+.site-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.site-phone {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  background: #f3efe6;
+  color: #1b1c1a;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.site-phone .material-symbols-outlined {
+  font-size: 18px;
+  color: #3d6657;
+}
+
+.site-book {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0.5rem;
+  background: #e5a823;
+  color: #5c4000;
+}
+
+.site-book:hover {
+  background: #b38012;
+  color: #ffffff;
+}
+
+.site-book.is-active {
+  box-shadow: inset 0 0 0 2px #1b4f40;
+}
+
+.site-menu {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e4dfd7;
+  background: #fbf9f6;
+  color: #1b1c1a;
+  cursor: pointer;
+}
+
+.site-drawer-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem 0.75rem;
+  border-radius: 0.5rem;
+  color: #1b1c1a;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.site-drawer-link:hover,
+.site-drawer-sublink:hover {
+  background: #f3efe6;
+}
+
+.site-drawer-sublink {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-left: 0.75rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.5rem;
+  color: #504534;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.site-drawer-sublink.is-active {
+  background: #e8f0ec;
+  color: #254e40;
+}
+
+.site-drawer-book {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #e5a823;
+  color: #5c4000;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .site-nav {
+    display: flex;
+  }
+
+  .site-header-bar {
+    padding: 0 2rem;
+    gap: 1.5rem;
+  }
+
+  .site-menu {
+    display: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  .site-phone {
+    display: inline-flex;
+  }
+}
+
+#gallery-cards-grid .gallery-card {
+  cursor: pointer;
+}
+
+#gallery-cards-grid .gallery-card:focus-visible {
+  outline: 3px solid #c4a35a;
+  outline-offset: 3px;
+}
+
+.gallery-viewer[hidden] {
+  display: none;
+}
+
+.gallery-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.gallery-viewer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(16, 22, 19, 0.84);
+}
+
+.gallery-viewer-dialog {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: min(58rem, 100%);
+  max-height: calc(100vh - 2rem);
+  overflow: hidden;
+  background: #fbf9f6;
+  border-radius: 1.25rem;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
+}
+
+.gallery-viewer-photo {
+  display: block;
+  width: 100%;
+  height: min(52vh, 560px);
+  object-fit: contain;
+  background: #121614;
+  flex: 0 0 auto;
+}
+
+.gallery-viewer-copy {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.gallery-viewer-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.gallery-viewer-badges:empty {
+  display: none;
+}
+
+.gallery-viewer-badges span {
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: #254e40;
+  color: #f4f7f5;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.gallery-viewer-copy h2 {
+  margin: 0;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  color: #1b1c1a;
+}
+
+.gallery-viewer-location {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0.45rem 0 0;
+  color: #8a6a1d;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.gallery-viewer-location[hidden] {
+  display: none;
+}
+
+.gallery-viewer-caption {
+  margin: 0.75rem 0 0;
+  max-width: 42rem;
+  color: #3d433f;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.gallery-viewer-caption[hidden] {
+  display: none;
+}
+
+.gallery-viewer-close,
+.gallery-viewer-nav {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(251, 249, 246, 0.94);
+  color: #1b1c1a;
+  cursor: pointer;
+}
+
+.gallery-viewer-close {
+  top: 0.85rem;
+  right: 0.85rem;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.gallery-viewer-nav {
+  top: min(26vh, 280px);
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.gallery-viewer-prev {
+  left: 0.85rem;
+}
+
+.gallery-viewer-next {
+  right: 0.85rem;
+}
+
+.gallery-viewer-nav[hidden] {
+  display: none;
+}
