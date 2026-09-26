@@ -556,6 +556,39 @@
     });
   }
 
+  function setupHeroAmbient() {
+    var video = document.getElementById("hero-ambient");
+    if (!video) return;
+    var limit = 70;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      video.removeAttribute("autoplay");
+      video.pause();
+      video.hidden = true;
+      return;
+    }
+    var restarting = false;
+    function restart() {
+      if (restarting) return;
+      restarting = true;
+      var finish = function () { restarting = false; };
+      try {
+        video.currentTime = 0;
+      } catch (err) {
+        finish();
+        return;
+      }
+      var play = video.play();
+      if (play && play.then) play.then(finish, finish);
+      else finish();
+    }
+    video.addEventListener("timeupdate", function () {
+      if (video.currentTime >= limit) restart();
+    });
+    video.addEventListener("ended", restart);
+    var play = video.play();
+    if (play && play.catch) play.catch(function () {});
+  }
+
   function setupGalleryViewer() {
     var grid = document.getElementById("gallery-cards-grid");
     if (!grid || document.getElementById("gallery-viewer")) return;
@@ -678,6 +711,7 @@
     applyQueryState();
     setupArticles();
     setupGalleryViewer();
+    setupHeroAmbient();
     renderSavedInquiries();
   });
 })();
