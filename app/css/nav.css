@@ -23,24 +23,56 @@
 .site-brand {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1.75rem;
   flex-shrink: 0;
   text-decoration: none;
   color: #1b1c1a;
 }
 
 .site-brand img {
-  height: 2.25rem;
+  height: 4rem;
   width: auto;
   object-fit: contain;
 }
 
-.site-brand span {
+.site-wordmark {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0.35rem;
+  line-height: 1;
+}
+
+.site-wordmark-name {
   font-family: "Playfair Display", Georgia, serif;
   font-size: 1.375rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  color: #1b1c1a;
+}
+
+.site-wordmark-travel {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   line-height: 1;
+  color: #e5a823;
+}
+
+.site-wordmark-on-dark .site-wordmark-name {
+  color: #fbf9f6;
+  font-size: 1.75rem;
+}
+
+.site-wordmark-on-dark .site-wordmark-travel {
+  color: #f0b429;
+  font-size: 0.8rem;
+}
+
+footer .site-wordmark {
+  margin-left: 0.85rem;
 }
 
 .site-nav {
@@ -293,19 +325,169 @@
   }
 }
 
+.hero-carousel {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-track {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.hero-slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide-still {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+}
+
+.hero-slide img,
 .hero-ambient-video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   pointer-events: none;
+}
+
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero-scrim-side {
+  background: linear-gradient(90deg, rgba(27, 79, 64, 0.94) 0%, rgba(27, 79, 64, 0.78) 34%, rgba(27, 79, 64, 0.34) 62%, rgba(27, 79, 64, 0.12) 100%);
+}
+
+.hero-scrim-bottom {
+  background: linear-gradient(180deg, rgba(27, 79, 64, 0.42) 0%, transparent 24%, transparent 58%, rgba(27, 79, 64, 0.78) 100%);
+}
+
+.hero-arrow {
+  position: absolute;
+  right: 1.25rem;
+  z-index: 12;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgba(249, 235, 203, 0.45);
+  border-radius: 999px;
+  background: rgba(27, 79, 64, 0.45);
+  color: #fbf9f6;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+
+.hero-arrow-prev {
+  top: calc(50% - 3.2rem);
+}
+
+.hero-arrow-next {
+  top: calc(50% + 0.45rem);
+}
+
+.hero-arrow:hover,
+.hero-arrow:focus-visible {
+  background: #e5a823;
+  color: #3d2a00;
+  border-color: #e5a823;
+  outline: none;
+}
+
+.hero-lead .hero-lead-phrase,
+.hero-lead .hero-lead-rest {
+  color: rgba(255, 255, 255, 0.42);
+  background-color: transparent;
+  text-shadow: none;
+  transition: color 0.45s ease, background-color 0.45s ease, text-shadow 0.45s ease;
+}
+
+.hero-lead .hero-lead-phrase.is-lit {
+  color: #ffe7a8;
+  background-color: rgba(229, 168, 35, 0.28);
+  border-radius: 0.16em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  text-shadow: 0 0 16px rgba(229, 168, 35, 0.85);
+}
+
+.hero-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.35rem;
+}
+
+.hero-control {
+  appearance: none;
+  border: 1px solid rgba(249, 235, 203, 0.35);
+  background: rgba(251, 249, 246, 0.08);
+  color: rgba(251, 249, 246, 0.82);
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.hero-control.is-active {
+  background: #e5a823;
+  border-color: #e5a823;
+  color: #3d2a00;
+}
+
+.hero-control:focus-visible {
+  outline: 2px solid #f9ebcb;
+  outline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  .hero-arrow {
+    display: inline-flex;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-ambient-video {
     display: none;
   }
+
+  .hero-track {
+    transition: none;
+  }
+}
+
+.pillar-card {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pillar-card:focus-visible {
+  outline: 3px solid #c4a35a;
+  outline-offset: 3px;
 }
 
 #gallery-cards-grid .gallery-card {

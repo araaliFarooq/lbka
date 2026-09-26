@@ -87,7 +87,7 @@
     var link = document.createElement("a");
     link.href = "index.html";
     link.className = wrap.className;
-    link.setAttribute("aria-label", "LABAIKA home");
+    link.setAttribute("aria-label", "Labaika travel home");
     while (wrap.firstChild) link.appendChild(wrap.firstChild);
     wrap.replaceWith(link);
   }
@@ -556,19 +556,27 @@
     });
   }
 
-  function setupHeroAmbient() {
+  function setupHeroCarousel() {
+    var hero = document.getElementById("home-hero");
+    var track = document.getElementById("hero-track");
+    if (!hero || !track) return;
+    var slides = Array.prototype.slice.call(track.querySelectorAll(".hero-slide"));
+    var phrases = hero.querySelectorAll(".hero-lead-phrase");
+    var tabs = hero.querySelectorAll("[data-hero-index]");
     var video = document.getElementById("hero-ambient");
-    if (!video) return;
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var index = 0;
+    var timer = null;
+    var dwell = 8000;
     var limit = 70;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      video.removeAttribute("autoplay");
-      video.pause();
-      video.hidden = true;
-      return;
-    }
     var restarting = false;
-    function restart() {
-      if (restarting) return;
+
+    function pillarAt(i) {
+      return slides[i].getAttribute("data-pillar");
+    }
+
+    function restartVideo() {
+      if (!video || restarting) return;
       restarting = true;
       var finish = function () { restarting = false; };
       try {
@@ -577,16 +585,120 @@
         finish();
         return;
       }
+      if (pillarAt(index) !== "religion" || reduced) {
+        finish();
+        return;
+      }
       var play = video.play();
       if (play && play.then) play.then(finish, finish);
       else finish();
     }
-    video.addEventListener("timeupdate", function () {
-      if (video.currentTime >= limit) restart();
+
+    function playVideo(active) {
+      if (!video) return;
+      if (reduced || !active) {
+        video.pause();
+        return;
+      }
+      var play = video.play();
+      if (play && play.catch) play.catch(function () {});
+    }
+
+    function place(animate) {
+      track.style.transition = (!animate || reduced) ? "none" : "transform 0.9s cubic-bezier(0.65, 0, 0.35, 1)";
+      track.style.transform = "translate3d(" + (-index * hero.clientWidth) + "px,0,0)";
+    }
+
+    function show(next, animate) {
+      index = (next + slides.length) % slides.length;
+      var pillar = pillarAt(index);
+      place(animate !== false);
+      slides.forEach(function (slide, i) {
+        slide.classList.toggle("is-active", i === index);
+      });
+      phrases.forEach(function (phrase) {
+        var keys = phrase.getAttribute("data-pillar").split(/\s+/);
+        phrase.classList.toggle("is-lit", keys.indexOf(pillar) !== -1);
+      });
+      tabs.forEach(function (tab) {
+        var on = Number(tab.getAttribute("data-hero-index")) === index;
+        tab.classList.toggle("is-active", on);
+        tab.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      playVideo(pillar === "religion");
+    }
+
+    function stop() {
+      if (timer) window.clearInterval(timer);
+      timer = null;
+    }
+
+    function start() {
+      stop();
+      if (reduced) return;
+      timer = window.setInterval(function () { show(index + 1); }, dwell);
+    }
+
+    if (video) {
+      video.addEventListener("timeupdate", function () {
+        if (video.currentTime >= limit) restartVideo();
+      });
+      video.addEventListener("ended", restartVideo);
+      if (reduced) {
+        video.removeAttribute("autoplay");
+        video.pause();
+        video.hidden = true;
+      }
+    }
+
+    window.addEventListener("resize", function () { place(false); });
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        show(Number(tab.getAttribute("data-hero-index")));
+        start();
+      });
     });
-    video.addEventListener("ended", restart);
-    var play = video.play();
-    if (play && play.catch) play.catch(function () {});
+
+    hero.querySelectorAll("[data-hero-step]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        show(index + Number(button.getAttribute("data-hero-step")));
+        start();
+      });
+    });
+
+    hero.addEventListener("keydown", function (event) {
+      if (!event.target.closest || !event.target.closest("[data-hero-index]")) return;
+      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+      event.preventDefault();
+      show(index + (event.key === "ArrowRight" ? 1 : -1));
+      if (tabs[index]) tabs[index].focus();
+      start();
+    });
+
+    var hold = hero.querySelector(".hero-lead");
+    if (hold) {
+      hold.addEventListener("mouseenter", stop);
+      hold.addEventListener("mouseleave", start);
+    }
+    hero.addEventListener("focusin", function (event) {
+      if (event.target.closest && event.target.closest(".hero-controls, .hero-arrow")) stop();
+    });
+    hero.addEventListener("focusout", function (event) {
+      if (!hero.contains(event.relatedTarget)) start();
+    });
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        stop();
+        if (video) video.pause();
+      } else {
+        start();
+        playVideo(pillarAt(index) === "religion");
+      }
+    });
+
+    show(0, false);
+    start();
   }
 
   function setupGalleryViewer() {
@@ -711,7 +823,7 @@
     applyQueryState();
     setupArticles();
     setupGalleryViewer();
-    setupHeroAmbient();
+    setupHeroCarousel();
     renderSavedInquiries();
   });
 })();

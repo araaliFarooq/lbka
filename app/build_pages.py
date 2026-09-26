@@ -249,9 +249,8 @@ def site_header(active):
     book_current = ' aria-current="page"' if active == "book" else ""
     return (
         '<header class="site-header"><div class="site-header-bar">'
-        '<a class="site-brand" href="index.html" aria-label="LABAIKA home">'
-        '<img alt="LABAIKA Travel &amp; Safaris" src="%s"/>'
-        '<span>LABAIKA</span></a>'
+        '<a class="site-brand" href="index.html" aria-label="Labaika travel home">'
+        '<img alt="Labaika travel" src="%s"/></a>'
         '<nav class="site-nav" aria-label="Primary">%s</nav>'
         '<div class="site-actions">'
         '<a class="site-phone" href="tel:+256772676128">'
@@ -265,7 +264,7 @@ def site_header(active):
 def standardize_header(html, filename):
     active = "home" if filename == "index.html" else filename.replace(".html", "")
     html = re.sub(r"<header[\s\S]*?</header>", site_header(active), html, count=1)
-    if 'href="css/nav.css"' not in html:
+    if "css/nav.css" not in html:
         html = html.replace("</head>", '<link href="css/nav.css" rel="stylesheet"/></head>', 1)
     return html
 
